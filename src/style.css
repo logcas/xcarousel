@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.x-carousel-wrapper {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.x-carousel {
+  position: absolute;
+  list-style: none;
+}
+
+.x-carousel-item {
+  float: left;
+}
+
+.x-carousel-move {
+  transition: all 0.8s ease-in-out;
+}
