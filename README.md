@@ -1,6 +1,9 @@
 # XCarousel
 基于原生JavaScript的轮播图组件。
 
+## Demo
+https://logcas.github.io/xcarousel
+
 ## Install
 ```
 npm install xcarousel -S

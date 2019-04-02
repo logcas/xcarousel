@@ -7,14 +7,14 @@ module.exports = merge(basicConfig, {
   mode: 'development',
   entry: path.resolve(__dirname, '../src', 'index.js'),
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../example'),
     filename: 'index.js',
   },
   devServer: {
     port: 8081,
     hot: true,
     open: true,
-    contentBase: path.resolve(__dirname, '../dist'),
+    contentBase: path.resolve(__dirname, '../example'),
     compress: true,
   },
   plugins: [

@@ -5,7 +5,7 @@ window.onload = function() {
     width: 830,
     height: 420,
     auto: true,
-    startIndex: 3,
+    startIndex: 0,
     delay: 2000,
     direction: 'right',
   });
