@@ -29,8 +29,11 @@ function warn(message) {
   console.warn(message);
 }
 
+function noop() {};
+
 const _init = Symbol('init');
 const _playNext = Symbol('playNext');
+const _getIndex = Symbol('getIndex');
 
 const PENDING = 'pending';
 const PLAYING = 'playing';
@@ -41,12 +44,14 @@ export default class XCarousel {
     typeof el === 'string' && (el = document.querySelector(el));
     this.el = el; // 根元素
     this.startIndex = options.startIndex || 0; // 起始索引
+    this.index = options.startIndex || 0; // 真索引
     this.auto = options.auto || true; // 自动播放
     this.delay = options.delay || 4000; // 延迟
     this.width = options.width || (warn('你必须为轮播图指定一个宽度(px)') && 0); // 宽度 px
     this.height = options.height || (warn('你必须为轮播图指定一个高度(px)') && 0); // 高度 px
     this.status = PENDING; // 状态
     this.direction = options.direction || 'right'; // 播放方向
+    this.onChangeCallback = options.onChange || noop;
     this[_init]();
   }
 
@@ -54,6 +59,7 @@ export default class XCarousel {
      // 拷贝第一个和最后一个Element
      // 把最后一个结点插在最前面
      // 把第一个结点插在最后
+    this.maxIndex = this.el.children.length - 1;
     const firstChildClone = this.el.firstElementChild.cloneNode(true);
     const lastChildClone = this.el.lastElementChild.cloneNode(true);
     this.el.insertBefore(lastChildClone, this.el.firstChild);
@@ -62,7 +68,7 @@ export default class XCarousel {
     this.el.style.width = this.width * this.children.length + 'px';
     this.el.style.height = this.height + 'px';
     this.currentIndex = this.startIndex % this.children.length + 1;
-    setTranslate(this.el, 'X', -(this.currentIndex + 1) * this.width);
+    setTranslate(this.el, 'X', -(this.currentIndex) * this.width);
     if (!this.auto) return;
     this.play();
   }
@@ -83,7 +89,15 @@ export default class XCarousel {
       this.timer = setTimeout(() => {
         this[_playNext]();
       }, this.delay);
+      // excute callback function async when the index is changed.
+      setTimeout(this.onChangeCallback.bind(this, this[_getIndex]()), 0);
     }
+  }
+
+  [_getIndex]() {
+    if(this.currentIndex === 0) return this.maxIndex;
+    if(this.currentIndex === this.children.length - 1) return 0;
+    return this.currentIndex - 1;
   }
 
   play() {
@@ -93,6 +107,8 @@ export default class XCarousel {
         addClass(this.el, 'x-carousel-move');
         this[_playNext]();
       }, this.delay);
+      // excute callback function async when the index is changed.
+      setTimeout(this.onChangeCallback.bind(this, this[_getIndex]()), 0);
     }
   }
 

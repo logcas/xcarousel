@@ -1,6 +1,11 @@
 import XCarousel from './carousel';
 
+function $(selector) {
+  return document.querySelector(selector);
+}
+
 window.onload = function() {
+  const indexShower = $('#index');
   const cal = new XCarousel('#carousel', {
     width: 830,
     height: 420,
@@ -8,11 +13,14 @@ window.onload = function() {
     startIndex: 0,
     delay: 2000,
     direction: 'right',
+    onChange: function(index) {
+      indexShower.innerText = index;
+    }
   });
-  const nextButton = document.querySelector('#next');
-  const lastButton = document.querySelector('#last');
-  const playButton = document.querySelector('#play');
-  const stopButton = document.querySelector('#stop');
+  const nextButton = $('#next');
+  const lastButton = $('#last');
+  const playButton = $('#play');
+  const stopButton = $('#stop');
   nextButton.onclick = function() {
     cal.next();
   };
@@ -24,5 +32,5 @@ window.onload = function() {
   };
   stopButton.onclick = function() {
     cal.pause();
-  };
+  };  
 }

@@ -52,6 +52,9 @@ const cal = new XCarousel('#carousel', {
   startIndex: 3, // 开始的位置，可选
   delay: 2000, // 延迟
   direction: 'left', // 播放方向
+  onChange: function(index) { // 轮播图更改时触发的回调
+    console.log(index);
+  }
 });
 ```
 3. 基于上面的HTML结构，你可以自定义下一张、上一下的按钮。
@@ -66,6 +69,7 @@ const cal = new XCarousel('#carousel', {
   4. `startIndex`：开始的位置（索引），默认为0，即轮播图第一个元素。
   5. `delay`：时延，即每张轮播图停留的时间，默认为2000毫秒。
   6. `direction`：轮播图播放方向，默认为`right`，可选为`left`。
+  7. `onChange`：当轮播图发生变化时，会触发此回调函数，该函数的第一个参数为`index`，即当前轮播图的索引。
 
 ### `cal.play()`
 播放轮播图
