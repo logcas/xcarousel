@@ -1,9 +1,14 @@
 import './style.css';
 
+const BrowserPrefix = ['webkit', 'ms', 'Moz', 'O'];
+
 function setTranslate(el, direction, distance) {
   if (!el) return;
   direction = direction.toUpperCase();
-  el.style.transform = `translate${direction}(${distance}px)`;
+  BrowserPrefix.forEach(prefix => {
+    el.style[prefix + 'Transform'] = `translate${direction}(${distance}px)`;
+  });
+  el.style['transform'] = `translate${direction}(${distance}px)`;
 }
 
 function addClass(el, className) {
