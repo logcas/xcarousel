@@ -9,7 +9,7 @@ module.exports = merge(basicConfig, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'xcarousel.js',
-    library: 'xcarousel',
+    library: 'Xcarousel',
     libraryTarget: 'umd',
   },
   plugins: [
